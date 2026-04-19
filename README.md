@@ -26,23 +26,30 @@ Two ways. Pick one.
 3. Paste → **Save**.
 4. Hard-refresh the browser (`Cmd/Ctrl + Shift + R`).
 
-### Option B — `@import` (best for iteration)
+### Option B — `@import` from GitHub (recommended)
 
-Host the CSS somewhere reachable by your browser, then paste a single line into the Custom CSS field. Jellyfin supports standard CSS at-rules.
-
-**Via GitHub + jsDelivr** (recommended once you push this repo):
+Paste a single line into the Custom CSS field:
 
 ```css
-@import url("https://cdn.jsdelivr.net/gh/<user>/<repo>@<branch>/theme.css");
+@import url("https://cdn.jsdelivr.net/gh/iamngoni/jellyfin-next@master/theme.css");
 ```
 
-Concrete example — replace `<user>` with your GitHub handle once pushed:
+**Why jsDelivr and not `raw.githubusercontent.com`?** GitHub serves raw files as `Content-Type: text/plain` with `X-Content-Type-Options: nosniff`, which tells browsers to reject the file as CSS. The `@import` silently fails. jsDelivr proxies the same file with `Content-Type: text/css`, plus CDN caching and no rate limits.
 
-```css
-@import url("https://cdn.jsdelivr.net/gh/<your-github-user>/jellyfin-next@master/theme.css");
-```
+**Cache busting while iterating.** `@master` is cached for ~12 hours. Two options:
 
-**Via local dev server** (for live editing on the same machine):
+1. Pin to a specific commit (immutable, no cache issues):
+   ```css
+   @import url("https://cdn.jsdelivr.net/gh/iamngoni/jellyfin-next@<commit-sha>/theme.css");
+   ```
+2. Or hit the purge endpoint after each push:
+   ```
+   https://purge.jsdelivr.net/gh/iamngoni/jellyfin-next@master/theme.css
+   ```
+
+### Option C — Local dev server (fastest feedback)
+
+For live editing on the same machine:
 
 ```bash
 # from this repo root
@@ -52,10 +59,10 @@ python3 -m http.server 8787
 Then in Jellyfin Custom CSS:
 
 ```css
-@import url("http://localhost:8787/theme.css");
+@import url("http://127.0.0.1:8787/theme.css");
 ```
 
-Save, hard-refresh Jellyfin, and every edit you make to `theme.css` is one refresh away. Note: if you access Jellyfin over HTTPS, browsers will block `http://localhost` imports — use Option A or jsDelivr in that case.
+Save, hard-refresh Jellyfin, and every edit to `theme.css` is one refresh away. Note: if you access Jellyfin over HTTPS, browsers will block the `http://` import — use Option A or B instead.
 
 ## Customizing
 
