@@ -1,0 +1,715 @@
+/* =============================================================================
+   Jellyfin · Muse Theme
+   Modern minimalist. Deep charcoal canvas, violet accent, white pill CTAs.
+   Drop into: Dashboard → General → Custom CSS
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Surfaces */
+  --muse-bg:            #0a0a0d;
+  --muse-bg-soft:       #0f0f14;
+  --muse-surface:       #14141b;
+  --muse-surface-high:  #1b1b25;
+  --muse-overlay:       rgba(255, 255, 255, 0.04);
+  --muse-overlay-hi:    rgba(255, 255, 255, 0.08);
+  --muse-hairline:      rgba(255, 255, 255, 0.06);
+  --muse-hairline-hi:   rgba(255, 255, 255, 0.12);
+
+  /* Text */
+  --muse-text:          #f4f4f7;
+  --muse-text-dim:      rgba(244, 244, 247, 0.64);
+  --muse-text-mute:     rgba(244, 244, 247, 0.40);
+
+  /* Accent (violet → indigo) */
+  --muse-accent:        #8b7cf8;
+  --muse-accent-hi:     #a89cff;
+  --muse-accent-dim:    rgba(139, 124, 248, 0.18);
+  --muse-accent-glow:   rgba(139, 124, 248, 0.35);
+
+  /* Radii */
+  --muse-r-xs: 6px;
+  --muse-r-sm: 10px;
+  --muse-r-md: 14px;
+  --muse-r-lg: 20px;
+  --muse-r-xl: 28px;
+  --muse-r-pill: 999px;
+
+  /* Motion */
+  --muse-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --muse-dur: 220ms;
+
+  /* Override Jellyfin's own tokens so components inherit */
+  --theme-primary-color:            var(--muse-accent);
+  --theme-primary-color-darker:     #6f60e8;
+  --theme-primary-color-lighter:    var(--muse-accent-hi);
+  --theme-accent-text-color:        var(--muse-accent-hi);
+  --theme-background-color:         var(--muse-bg);
+  --theme-body-color:               var(--muse-text);
+  --theme-body-text-color:          var(--muse-text);
+  --theme-text-color:               var(--muse-text);
+  --theme-text-color-opaque:        var(--muse-text);
+  --theme-secondary-text-color:     var(--muse-text-dim);
+  --theme-body-background-color:    var(--muse-bg);
+  --theme-icon-focus-background:    var(--muse-overlay-hi);
+  --theme-button-color:              var(--muse-surface-high);
+
+  color-scheme: dark;
+}
+
+/* -----------------------------------------------------------------------------
+   2. Base canvas
+   -------------------------------------------------------------------------- */
+html,
+body,
+.backgroundContainer,
+.skinBody,
+.mainAnimatedPages,
+.pageContainer {
+  background: var(--muse-bg) !important;
+  color: var(--muse-text);
+}
+
+body {
+  font-feature-settings: "ss01", "cv02", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
+}
+
+/* Soft radial glow in the background for depth */
+.backgroundContainer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(139, 124, 248, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgba(90, 70, 200, 0.08), transparent 60%);
+  z-index: 0;
+}
+
+/* Typography hierarchy */
+h1, h2, h3, .sectionTitle, .pageTitle, .detailPageTitle {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+.sectionTitle,
+.sectionTitleContainer .sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--muse-text);
+}
+
+/* Links / inline accents */
+a,
+.button-link {
+  color: var(--muse-accent-hi);
+}
+
+/* -----------------------------------------------------------------------------
+   3. Top header (skinHeader)
+   -------------------------------------------------------------------------- */
+.skinHeader {
+  background: rgba(10, 10, 13, 0.70) !important;
+  backdrop-filter: saturate(140%) blur(18px);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  border-bottom: 1px solid var(--muse-hairline);
+  box-shadow: none;
+}
+.skinHeader.semiTransparent,
+.skinHeader-withBackground {
+  background: rgba(10, 10, 13, 0.55) !important;
+}
+.headerTabs,
+.sectionTabs {
+  background: transparent !important;
+}
+.emby-tab-button {
+  color: var(--muse-text-dim);
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: 0;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--muse-r-pill);
+  transition: color var(--muse-dur) var(--muse-ease),
+              background var(--muse-dur) var(--muse-ease);
+}
+.emby-tab-button:hover { color: var(--muse-text); }
+.emby-tab-button.is-active {
+  color: var(--muse-text);
+  background: var(--muse-overlay);
+}
+.emby-tab-button.is-active::before,
+.emby-tab-button::before { display: none !important; }
+
+/* Header icon buttons → circular, soft hover */
+.headerRight .paper-icon-button-light,
+.skinHeader .paper-icon-button-light {
+  border-radius: var(--muse-r-pill);
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--muse-text-dim);
+  transition: background var(--muse-dur) var(--muse-ease),
+              color var(--muse-dur) var(--muse-ease);
+}
+.headerRight .paper-icon-button-light:hover,
+.skinHeader .paper-icon-button-light:hover {
+  background: var(--muse-overlay-hi);
+  color: var(--muse-text);
+}
+
+/* -----------------------------------------------------------------------------
+   4. Main drawer (left sidebar)
+   -------------------------------------------------------------------------- */
+.mainDrawer,
+.mainDrawer-scrollContainer {
+  background: var(--muse-bg-soft) !important;
+  border-right: 1px solid var(--muse-hairline);
+}
+.mainDrawer-scrollContainer .navMenuOption {
+  border-radius: var(--muse-r-md);
+  margin: 0.15rem 0.6rem;
+  padding: 0.7rem 0.9rem;
+  color: var(--muse-text-dim);
+  transition: background var(--muse-dur) var(--muse-ease),
+              color var(--muse-dur) var(--muse-ease);
+}
+.mainDrawer-scrollContainer .navMenuOption:hover {
+  background: var(--muse-overlay);
+  color: var(--muse-text);
+}
+.mainDrawer-scrollContainer .navMenuOption-selected {
+  background: var(--muse-accent-dim) !important;
+  color: var(--muse-text) !important;
+}
+.mainDrawer-scrollContainer .navMenuOption-selected .navMenuOptionIcon,
+.mainDrawer-scrollContainer .navMenuOption-selected .navMenuOptionText {
+  color: var(--muse-text) !important;
+}
+.mainDrawer-scrollContainer .navMenuOptionIcon {
+  color: inherit;
+  margin-inline-end: 0.9rem;
+}
+.mainDrawer-scrollContainer h3 {
+  color: var(--muse-text-mute);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  padding: 1rem 1.2rem 0.4rem;
+}
+
+/* -----------------------------------------------------------------------------
+   5. Cards
+   -------------------------------------------------------------------------- */
+.card {
+  margin-bottom: 0.8rem;
+}
+.cardBox,
+.cardBox-bottompadded {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.cardPadder,
+.cardImageContainer,
+.cardContent,
+.cardContent-button,
+.cardImage {
+  border-radius: var(--muse-r-md) !important;
+  overflow: hidden;
+}
+.cardImageContainer {
+  background: var(--muse-surface);
+  transition: transform var(--muse-dur) var(--muse-ease),
+              box-shadow var(--muse-dur) var(--muse-ease);
+}
+.card:hover .cardImageContainer {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 0 1px var(--muse-hairline-hi);
+}
+
+/* Card text */
+.cardText,
+.innerCardFooter {
+  color: var(--muse-text);
+  padding-top: 0.5rem;
+  font-size: 0.9rem;
+}
+.cardText-secondary,
+.cardText + .cardText:not(.cardTextCentered) {
+  color: var(--muse-text-dim);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+/* Inner card footer (overlay text on images) */
+.innerCardFooter {
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.72));
+  padding: 2rem 0.8rem 0.6rem;
+}
+
+/* Card indicators (badges) */
+.cardIndicators {
+  top: 0.55rem;
+  right: 0.55rem;
+  gap: 0.3rem;
+}
+.indicator,
+.countIndicator,
+.playedIndicator {
+  border-radius: var(--muse-r-pill);
+  background: rgba(10, 10, 13, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--muse-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  box-shadow: inset 0 0 0 1px var(--muse-hairline);
+}
+.playedIndicator {
+  background: var(--muse-accent);
+  color: white;
+  box-shadow: 0 0 0 2px var(--muse-accent-glow);
+}
+
+/* Progress bar on cards (continue-watching vibe) */
+.itemProgressBar {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--muse-r-pill);
+  height: 3px;
+  overflow: hidden;
+}
+.itemProgressBarForeground {
+  background: var(--muse-accent) !important;
+  box-shadow: 0 0 8px var(--muse-accent-glow);
+}
+
+/* -----------------------------------------------------------------------------
+   6. Buttons
+   -------------------------------------------------------------------------- */
+
+/* Reset default Jellyfin button shape */
+.emby-button,
+.raised,
+.button-submit,
+.fab,
+.paper-icon-button-light {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  border-radius: var(--muse-r-pill);
+  transition: background var(--muse-dur) var(--muse-ease),
+              color var(--muse-dur) var(--muse-ease),
+              transform var(--muse-dur) var(--muse-ease),
+              box-shadow var(--muse-dur) var(--muse-ease);
+}
+
+/* Primary CTA → white pill with play icon (Netflix/Prime pattern) */
+.button-submit,
+.raised.button-submit,
+.btnPlay.raised,
+.mainDetailButtons .btnPlay,
+.detailButton-primary {
+  background: #ffffff !important;
+  color: #0a0a0d !important;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.button-submit:hover,
+.raised.button-submit:hover,
+.btnPlay.raised:hover,
+.mainDetailButtons .btnPlay:hover,
+.detailButton-primary:hover {
+  background: #f0f0f3 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+.button-submit .detailButton-icon,
+.btnPlay .detailButton-icon {
+  color: #0a0a0d !important;
+}
+
+/* Secondary raised → subtle glass pill */
+.raised:not(.button-submit):not(.btnPlay) {
+  background: var(--muse-overlay) !important;
+  color: var(--muse-text) !important;
+  box-shadow: inset 0 0 0 1px var(--muse-hairline);
+  padding: 0.7rem 1.3rem;
+}
+.raised:not(.button-submit):not(.btnPlay):hover {
+  background: var(--muse-overlay-hi) !important;
+  box-shadow: inset 0 0 0 1px var(--muse-hairline-hi);
+}
+
+/* Icon-only circular buttons (e.g., detail-page secondaries) */
+.detailButton,
+.btnUserRating,
+.btnMoreCommands {
+  background: transparent;
+}
+.detailButton-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+.detailButton:not(.detailButton-primary) .detailButton-icon {
+  width: 2.9rem;
+  height: 2.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--muse-r-pill);
+  background: var(--muse-overlay);
+  box-shadow: inset 0 0 0 1px var(--muse-hairline);
+  color: var(--muse-text);
+  transition: background var(--muse-dur) var(--muse-ease),
+              box-shadow var(--muse-dur) var(--muse-ease);
+}
+.detailButton:not(.detailButton-primary):hover .detailButton-icon {
+  background: var(--muse-overlay-hi);
+  box-shadow: inset 0 0 0 1px var(--muse-hairline-hi);
+}
+.detailButton-text {
+  font-size: 0.72rem;
+  color: var(--muse-text-dim);
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Floating action button (corner play) */
+.fab.btnPlayTrailer,
+.fab {
+  background: var(--muse-accent) !important;
+  color: white !important;
+  box-shadow:
+    0 10px 30px var(--muse-accent-glow),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.fab:hover {
+  background: var(--muse-accent-hi) !important;
+  transform: translateY(-1px);
+}
+
+/* -----------------------------------------------------------------------------
+   7. Inputs, selects, search
+   -------------------------------------------------------------------------- */
+.emby-input,
+.emby-textarea,
+.emby-select {
+  background: var(--muse-surface) !important;
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-md);
+  color: var(--muse-text);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  transition: border-color var(--muse-dur) var(--muse-ease),
+              box-shadow var(--muse-dur) var(--muse-ease);
+}
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select:focus {
+  outline: none;
+  border-color: var(--muse-accent);
+  box-shadow: 0 0 0 3px var(--muse-accent-dim);
+}
+.inputLabel,
+.selectLabel,
+.textareaLabel {
+  color: var(--muse-text-dim) !important;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Global search bar */
+.searchFieldsInner .searchfields-txtSearch,
+.headerSearchInput {
+  background: var(--muse-surface);
+  border-radius: var(--muse-r-pill);
+  border: 1px solid var(--muse-hairline);
+  padding: 0.6rem 1rem 0.6rem 2.8rem;
+}
+
+/* Checkboxes / toggles accent */
+.mdl-switch__thumb,
+input[type="checkbox"]:checked + .checkboxLabel::before {
+  background-color: var(--muse-accent) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   8. Item detail page
+   -------------------------------------------------------------------------- */
+.itemBackdrop {
+  background-size: cover;
+  background-position: center 20%;
+}
+.itemBackdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 13, 0) 0%, rgba(10, 10, 13, 0.55) 55%, var(--muse-bg) 100%),
+    linear-gradient(90deg, rgba(10, 10, 13, 0.75) 0%, rgba(10, 10, 13, 0.35) 45%, rgba(10, 10, 13, 0) 100%);
+  pointer-events: none;
+}
+
+.detailPagePrimaryContainer,
+.detailPageContent {
+  background: transparent !important;
+}
+
+.detailImageContainer .detailImage,
+.detailImageContainer img {
+  border-radius: var(--muse-r-lg);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 0 0 1px var(--muse-hairline);
+}
+
+.mainDetailButtons {
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.itemMiscInfo,
+.mediaInfoItems,
+.genreItems {
+  color: var(--muse-text-dim);
+  font-size: 0.92rem;
+}
+.mediaInfoItem,
+.genreItem,
+.tagItem {
+  background: var(--muse-overlay);
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-pill);
+  padding: 0.22rem 0.65rem;
+  font-size: 0.78rem;
+  color: var(--muse-text-dim);
+}
+
+/* Overview text */
+.overview {
+  color: var(--muse-text-dim);
+  line-height: 1.6;
+  font-size: 1rem;
+  max-width: 68ch;
+}
+
+/* -----------------------------------------------------------------------------
+   9. Video player OSD
+   -------------------------------------------------------------------------- */
+.videoOsdBottom,
+.osdHeader {
+  background: linear-gradient(180deg, rgba(10, 10, 13, 0.85) 0%, rgba(10, 10, 13, 0) 100%) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.videoOsdBottom {
+  background: linear-gradient(0deg, rgba(10, 10, 13, 0.85) 0%, rgba(10, 10, 13, 0) 100%) !important;
+}
+.osdTitle,
+.osdMediaInfo {
+  color: var(--muse-text);
+  font-weight: 500;
+}
+.osdPoster img {
+  border-radius: var(--muse-r-sm);
+}
+
+/* Progress scrubber */
+.mdl-slider-background-flex-container {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: var(--muse-r-pill);
+  height: 4px;
+}
+.mdl-slider-background-lower,
+.mdl-slider__background-lower {
+  background: var(--muse-accent) !important;
+}
+.mdl-slider,
+input[type="range"]::-webkit-slider-thumb {
+  color: var(--muse-accent) !important;
+}
+
+/* Transport buttons row */
+.videoOsdBottom .paper-icon-button-light {
+  color: var(--muse-text);
+}
+.videoOsdBottom .paper-icon-button-light:hover {
+  background: var(--muse-overlay-hi);
+  color: var(--muse-text);
+}
+.btnPause,
+.osdPlayPauseButton {
+  background: white !important;
+  color: #0a0a0d !important;
+  border-radius: var(--muse-r-pill);
+}
+
+/* -----------------------------------------------------------------------------
+   10. Dialogs / popups / menus
+   -------------------------------------------------------------------------- */
+.dialog,
+.formDialog,
+.actionSheetContent,
+.dialogContent {
+  background: var(--muse-surface) !important;
+  border-radius: var(--muse-r-lg) !important;
+  border: 1px solid var(--muse-hairline);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+.dialogHeader {
+  border-bottom: 1px solid var(--muse-hairline);
+}
+.actionSheetMenuItem,
+.listItem-button {
+  border-radius: var(--muse-r-md);
+}
+.actionSheetMenuItem:hover,
+.listItem-button:hover {
+  background: var(--muse-overlay-hi);
+}
+
+/* Context menu / popups */
+.paperList,
+.popover {
+  background: var(--muse-surface) !important;
+  border-radius: var(--muse-r-md) !important;
+  border: 1px solid var(--muse-hairline);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+/* -----------------------------------------------------------------------------
+   11. Home hero / featured carousel
+   -------------------------------------------------------------------------- */
+.hero-slider,
+.itemsContainer.padded-left.padded-right {
+  border-radius: var(--muse-r-lg);
+  overflow: hidden;
+}
+.headerTop,
+.sectionTitleContainer {
+  padding: 1.2rem 0 0.8rem;
+}
+.sectionTitleContainer .emby-button {
+  color: var(--muse-text-dim);
+  font-size: 0.85rem;
+}
+.sectionTitleContainer .emby-button:hover {
+  color: var(--muse-text);
+}
+
+/* -----------------------------------------------------------------------------
+   12. Tables (dashboard pages)
+   -------------------------------------------------------------------------- */
+.detailTable,
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+.detailTable th,
+table th {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muse-text-mute);
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--muse-hairline);
+}
+.detailTable td,
+table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--muse-hairline);
+  color: var(--muse-text);
+}
+
+/* -----------------------------------------------------------------------------
+   13. Login page
+   -------------------------------------------------------------------------- */
+.manualLoginForm,
+#loginPage {
+  background: transparent !important;
+}
+#loginPage .readOnlyContent,
+.manualLoginForm .inputContainer {
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+/* User card on login screen */
+.cardContent-button.manualLoginForm,
+.cardOverlayButton {
+  border-radius: var(--muse-r-lg);
+}
+
+/* -----------------------------------------------------------------------------
+   14. Scrollbar (WebKit)
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--muse-overlay-hi);
+  border-radius: var(--muse-r-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.18); }
+
+/* -----------------------------------------------------------------------------
+   15. Misc polish
+   -------------------------------------------------------------------------- */
+
+/* Chips / filters */
+.emby-checkbox-label,
+.checkboxListLabel {
+  color: var(--muse-text);
+}
+
+/* Divider lines */
+hr,
+.paperList-divider {
+  border: none;
+  border-top: 1px solid var(--muse-hairline);
+}
+
+/* Focus ring (keyboard) */
+:focus-visible {
+  outline: 2px solid var(--muse-accent);
+  outline-offset: 2px;
+  border-radius: var(--muse-r-sm);
+}
+
+/* Toast / message */
+.toast,
+.snackbar {
+  background: var(--muse-surface-high) !important;
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-md);
+  color: var(--muse-text);
+}
+
+/* Loading spinner */
+.mdl-spinner__layer { border-color: var(--muse-accent) !important; }
+
+/* Kill legacy hard borders inside cards */
+.cardBox > div,
+.cardBox .card,
+.card > div { border: none; }
