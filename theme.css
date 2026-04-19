@@ -1273,140 +1273,265 @@ hr,
 }
 
 /* -----------------------------------------------------------------------------
-   28d. Hero — first section, IF rendered as a featured backdrop card
-   (aggressive best-effort since Jellyfin doesn't have a native hero slot)
+   28d. Home hero — Editors Choice plugin + narrow branding-card fallback
+   The real home hero is the plugin slider, not Jellyfin's first card row.
    -------------------------------------------------------------------------- */
-.homeSectionsContainer > .verticalSection.section0:has(.backdropCard),
-.homeSectionsContainer > .verticalSection.section0:has(.overflowBackdropCard:only-child) {
-  margin-bottom: 1rem !important;
+.homeSectionsContainer.editorsChoiceAdded {
+  gap: clamp(2rem, 4vw, 3.25rem);
 }
 
-/* If a section is marked hero / brand, make it full-bleed */
-.verticalSection.hero,
-.verticalSection-extrapadding .backdropCard,
-.homeBrandingCard {
-  width: 100%;
-}
-.verticalSection.hero .cardImageContainer,
-.homeBrandingCard .cardImageContainer {
-  aspect-ratio: 21 / 9;
-  min-height: 100vh;
-  min-height: 100svh;
-  border-radius: 0 !important;
-}
-
-/* Force first hero region to full-screen width + height */
-.homeSectionsContainer > .verticalSection.section0,
-.homeSectionsContainer > .verticalSection.hero,
-.homeSectionsContainer > .verticalSection:first-of-type {
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer {
+  position: relative;
   width: 100vw !important;
   max-width: none !important;
   margin-inline: calc(50% - 50vw) !important;
-  min-height: 100vh !important;
-  min-height: 100svh !important;
-  max-height: 100vh;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem) !important;
   padding: 0 !important;
-  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
 }
 
-.homeSectionsContainer > .verticalSection.section0 .card,
-.homeSectionsContainer > .verticalSection.hero .card,
-.homeSectionsContainer > .verticalSection:first-of-type .card,
-.homeSectionsContainer > .verticalSection.section0 .cardBox,
-.homeSectionsContainer > .verticalSection.hero .cardBox,
-.homeSectionsContainer > .verticalSection:first-of-type .cardBox,
-.homeSectionsContainer > .verticalSection.section0 .cardPadder,
-.homeSectionsContainer > .verticalSection.hero .cardPadder,
-.homeSectionsContainer > .verticalSection:first-of-type .cardPadder,
-.homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
-.homeSectionsContainer > .verticalSection.hero .cardImageContainer,
-.homeSectionsContainer > .verticalSection:first-of-type .cardImageContainer,
-.homeSectionsContainer > .verticalSection.section0 .cardImage,
-.homeSectionsContainer > .verticalSection.hero .cardImage,
-.homeSectionsContainer > .verticalSection:first-of-type .cardImage {
-  width: 100% !important;
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .splide.cardScalable,
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .splide__track,
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .splide__list {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: clip;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemsContainer {
+  width: 100%;
+  column-gap: 0 !important;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner {
+  position: relative;
+  display: flex !important;
+  align-items: stretch;
+  width: 100vw !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
   height: 100vh !important;
   height: 100svh !important;
-  min-height: 100vh !important;
-  min-height: 100svh !important;
-  max-height: 100vh;
-  border-radius: 0 !important;
-  aspect-ratio: auto !important;
-}
-
-.homeSectionsContainer > .verticalSection.section0 .backdropCard,
-.homeSectionsContainer > .verticalSection.section0 .homeBrandingCard,
-.homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
-.homeSectionsContainer > .verticalSection.section0 .cardImage,
-.homeSectionsContainer > .verticalSection.hero .backdropCard,
-.homeSectionsContainer > .verticalSection.hero .homeBrandingCard,
-.homeSectionsContainer > .verticalSection.hero .cardImageContainer,
-.homeSectionsContainer > .verticalSection.hero .cardImage,
-.homeSectionsContainer > .verticalSection:first-of-type .backdropCard,
-.homeSectionsContainer > .verticalSection:first-of-type .homeBrandingCard,
-.homeSectionsContainer > .verticalSection:first-of-type .cardImageContainer,
-.homeSectionsContainer > .verticalSection:first-of-type .cardImage {
-  min-height: 100vh !important;
-  min-height: 100svh !important;
-  max-height: 100vh !important;
-  aspect-ratio: auto !important;
-}
-
-.homeSectionsContainer > .verticalSection.section0 .cardImage,
-.homeSectionsContainer > .verticalSection.hero .cardImage,
-.homeSectionsContainer > .verticalSection:first-of-type .cardImage,
-.homeSectionsContainer > .verticalSection:first-of-type img {
-  object-fit: cover !important;
-  object-position: center center;
-  object-position: center 30%;
+  margin: 0 !important;
+  background-position: center 22% !important;
   background-size: cover !important;
-  background-position: center center !important;
-  display: block !important;
+  color: var(--muse-text) !important;
 }
 
-@media (max-width: 800px) {
-  .homeSectionsContainer > .verticalSection.section0,
-  .homeSectionsContainer > .verticalSection.hero,
-  .homeSectionsContainer > .verticalSection:first-of-type,
-  .homeSectionsContainer > .verticalSection.section0 .backdropCard,
-  .homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
-  .homeSectionsContainer > .verticalSection.hero .backdropCard,
-  .homeSectionsContainer > .verticalSection.hero .cardImageContainer,
-  .homeSectionsContainer > .verticalSection:first-of-type .backdropCard,
-  .homeSectionsContainer > .verticalSection:first-of-type .cardImageContainer {
-    min-height: 72vh !important;
-    min-height: 72svh !important;
-  }
-
-  .homePage .hero-slider,
-  #homeTab .hero-slider,
-  .itemsContainer.padded-left.padded-right {
-    margin-inline: calc(50% - 50vw);
-  }
-}
-.verticalSection.hero .innerCardFooter,
-.homeBrandingCard .innerCardFooter {
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner::before {
+  content: "";
+  position: absolute;
   inset: 0;
-  padding: clamp(1.5rem, 4vw, 3.5rem);
+  z-index: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 7, 10, 0.18) 0%,
+      rgba(6, 7, 10, 0.42) 48%,
+      rgba(6, 7, 10, 0.92) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(6, 7, 10, 0.96) 0%,
+      rgba(6, 7, 10, 0.82) 20%,
+      rgba(6, 7, 10, 0.38) 50%,
+      rgba(6, 7, 10, 0.08) 70%,
+      rgba(6, 7, 10, 0.55) 100%
+    );
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner > div {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  max-width: 60%;
-  background: linear-gradient(
-    90deg,
-    rgba(10, 10, 13, 0.95) 0%,
-    rgba(10, 10, 13, 0.75) 30%,
-    rgba(10, 10, 13, 0.2) 70%,
-    transparent 100%
-  );
+  align-items: flex-start;
+  gap: clamp(0.85rem, 1.6vw, 1.2rem);
+  width: min(42rem, 46vw);
+  max-width: 100%;
+  height: 100%;
+  padding: clamp(6rem, 12vh, 8.5rem) clamp(1.25rem, 5vw, 4.5rem) clamp(3rem, 9vh, 6rem) !important;
+  box-sizing: border-box;
+  background: none !important;
 }
-.verticalSection.hero .cardText-first,
-.homeBrandingCard .cardText-first {
-  font-size: clamp(1.8rem, 3.2vw, 3rem);
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemLogo {
+  display: block;
+  max-width: min(32rem, 34vw);
+  max-height: 22vh;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 1rem 2.5rem rgba(0, 0, 0, 0.55));
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemRating {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 !important;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--muse-r-pill);
+  background: rgba(8, 10, 14, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemOverview {
+  width: min(40rem, 42vw) !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  color: rgba(244, 244, 247, 0.88);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.65;
+  text-shadow: 0 0.35rem 1.6rem rgba(0, 0, 0, 0.45);
+  -webkit-line-clamp: 5;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemButton {
+  position: relative !important;
+  bottom: auto !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 9.5rem;
+  margin: 0 !important;
+  padding: 0.95rem 1.6rem !important;
+  border: 0 !important;
+  border-radius: var(--muse-r-pill) !important;
+  background: #ffffff !important;
+  color: #0a0a0d !important;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemButton span {
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 0.8rem;
+  letter-spacing: -0.01em;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceScrollButtonsContainer,
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoicePlayPauseContainer {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2.5rem) !important;
+  top: auto !important;
+  bottom: clamp(1.5rem, 6vh, 3rem);
+  z-index: 3;
+  width: auto !important;
+  mix-blend-mode: normal !important;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoicePlayPauseContainer {
+  bottom: calc(clamp(1.5rem, 6vh, 3rem) + 3.75rem);
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceScrollButtonsContainer > .splide__arrows,
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoicePlayPauseContainer > .splide__toggle {
+  float: none;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .splide__arrow,
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .splide__toggle {
+  width: 3rem;
+  height: 3rem;
+  padding: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--muse-r-pill);
+  background: rgba(8, 10, 14, 0.42) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.28);
+}
+
+.homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer + .verticalSection {
+  position: relative;
+  z-index: 2;
+}
+
+/* Legacy fallback if a build exposes a dedicated branding card instead */
+.verticalSection.hero .cardImageContainer,
+.homeBrandingCard .cardImageContainer {
+  aspect-ratio: 21 / 9;
+  min-height: clamp(28rem, 72vh, 52rem);
+  border-radius: 0 !important;
+}
+
+.verticalSection.hero .cardImage,
+.homeBrandingCard .cardImage {
+  object-fit: cover !important;
+  object-position: center 24% !important;
+}
+
+@media (max-width: 900px) {
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner {
+    min-height: 78vh !important;
+    min-height: 78svh !important;
+    height: 78vh !important;
+    height: 78svh !important;
+    background-position: center 24% !important;
+  }
+
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner > div {
+    width: 100%;
+    padding: clamp(5rem, 12vh, 7rem) 1.25rem 2.5rem !important;
+  }
+
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemLogo {
+    max-width: min(18rem, 75vw);
+    max-height: 16vh;
+  }
+
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemOverview {
+    width: min(30rem, 100%) !important;
+    font-size: 0.95rem;
+    -webkit-line-clamp: 4;
+  }
+}
+
+@media (max-width: 640px) {
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner {
+    min-height: 70vh !important;
+    min-height: 70svh !important;
+    height: 70vh !important;
+    height: 70svh !important;
+  }
+
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemBanner::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(6, 7, 10, 0.12) 0%,
+        rgba(6, 7, 10, 0.45) 45%,
+        rgba(6, 7, 10, 0.95) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(6, 7, 10, 0.94) 0%,
+        rgba(6, 7, 10, 0.72) 38%,
+        rgba(6, 7, 10, 0.08) 100%
+      );
+  }
+
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceItemButton {
+    min-width: 0;
+    padding: 0.85rem 1.35rem !important;
+  }
+
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoiceScrollButtonsContainer,
+  .homeSectionsContainer.editorsChoiceAdded > .editorsChoiceContainer .editorsChoicePlayPauseContainer {
+    right: 1rem !important;
+    bottom: 1rem;
+  }
 }
 
 /* -----------------------------------------------------------------------------
