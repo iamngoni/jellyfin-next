@@ -1087,8 +1087,314 @@ hr,
   }
 }
 
+/* =============================================================================
+   ============================================================================
+   28. HOME PAGE — density, hero, library shortcuts (Jellyfin 10.9 – 10.11.x)
+   ============================================================================
+   ============================================================================= */
+
+/* Home page overall rhythm */
+#indexPage,
+.homePage,
+#homeTab {
+  padding-top: 0 !important;
+}
+
+.homeSectionsContainer {
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
+  padding-block: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.homeSectionsContainer .verticalSection {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Section title rhythm */
+.homeSectionsContainer .sectionTitleContainer {
+  padding: 0 0 0.9rem !important;
+  margin: 0 !important;
+}
+.homeSectionsContainer .sectionTitle,
+.homeSectionsContainer .sectionTitle-cards {
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--muse-text);
+}
+
 /* -----------------------------------------------------------------------------
-   28. Reduced motion
+   28a. Library shortcut tiles — "My Media"
+   (overflowBackdropCard is the default shape for library tiles)
+   -------------------------------------------------------------------------- */
+.overflowBackdropCard,
+.overflowSmallBackdropCard {
+  width: clamp(180px, 18vw, 260px) !important;
+  padding: 0 0.5rem !important;
+  margin-bottom: 0 !important;
+}
+.overflowBackdropCard .cardPadder-overflowBackdrop,
+.overflowSmallBackdropCard .cardPadder-overflowSmallBackdrop,
+.overflowBackdropCard .cardImageContainer,
+.overflowSmallBackdropCard .cardImageContainer {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--muse-r-md) !important;
+}
+
+/* Hide the big ugly "text baked into image" library art by dimming + overlay */
+.overflowBackdropCard .cardImage,
+.overflowSmallBackdropCard .cardImage {
+  filter: brightness(0.75) saturate(1.05);
+  transition: filter var(--muse-dur) var(--muse-ease),
+              transform var(--muse-dur) var(--muse-ease);
+}
+.overflowBackdropCard:hover .cardImage,
+.overflowSmallBackdropCard:hover .cardImage {
+  filter: brightness(0.85) saturate(1.15);
+  transform: scale(1.04);
+}
+
+/* Label below library tile */
+.overflowBackdropCard .cardText,
+.overflowSmallBackdropCard .cardText {
+  text-align: center !important;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-top: 0.6rem;
+  padding: 0 !important;
+  color: var(--muse-text);
+}
+
+/* Stronger hover for ALL library tiles */
+.overflowBackdropCard .cardImageContainer,
+.overflowSmallBackdropCard .cardImageContainer {
+  position: relative;
+  box-shadow: 0 1px 0 var(--muse-hairline) inset;
+}
+.overflowBackdropCard .cardImageContainer::after,
+.overflowSmallBackdropCard .cardImageContainer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(10, 10, 13, 0.55) 100%);
+  transition: opacity var(--muse-dur) var(--muse-ease);
+}
+.overflowBackdropCard:hover .cardImageContainer,
+.overflowSmallBackdropCard:hover .cardImageContainer {
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 0 1px var(--muse-accent-dim),
+    0 0 20px var(--muse-accent-glow);
+}
+
+/* -----------------------------------------------------------------------------
+   28b. Portrait / poster cards (movies, series grids)
+   -------------------------------------------------------------------------- */
+.overflowPortraitCard,
+.portraitCard {
+  width: clamp(140px, 14vw, 200px) !important;
+  padding: 0 0.45rem !important;
+}
+.overflowPortraitCard .cardImageContainer,
+.portraitCard .cardImageContainer {
+  aspect-ratio: 2 / 3;
+  border-radius: var(--muse-r-md) !important;
+}
+.overflowPortraitCard .cardText,
+.portraitCard .cardText {
+  font-size: 0.86rem;
+  font-weight: 500;
+  margin-top: 0.55rem;
+  padding: 0 !important;
+}
+.overflowPortraitCard .cardText-secondary,
+.portraitCard .cardText-secondary {
+  font-size: 0.76rem;
+  color: var(--muse-text-dim);
+  font-weight: 400;
+}
+
+/* Square cards (music, playlists) */
+.overflowSquareCard,
+.squareCard {
+  width: clamp(150px, 15vw, 210px) !important;
+  padding: 0 0.45rem !important;
+}
+.overflowSquareCard .cardImageContainer,
+.squareCard .cardImageContainer {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--muse-r-md) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   28c. Page backdrop (the top "hero" fade from the featured item)
+   Jellyfin renders a full-page backdrop image on most pages. Lean into it.
+   -------------------------------------------------------------------------- */
+.backdropContainer,
+.itemBackdrop {
+  background-size: cover !important;
+  background-position: center 15%;
+  background-repeat: no-repeat;
+}
+.backdropContainer::before,
+.backdropContainer::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.backdropContainer::before {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 13, 0.35) 0%,
+    rgba(10, 10, 13, 0.75) 45%,
+    var(--muse-bg) 85%
+  );
+}
+.backdropContainer::after {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 13, 0.7) 0%,
+    rgba(10, 10, 13, 0.2) 50%,
+    rgba(10, 10, 13, 0.7) 100%
+  );
+}
+.skinBody,
+.mainAnimatedPages {
+  position: relative;
+  z-index: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   28d. Hero — first section, IF rendered as a featured backdrop card
+   (aggressive best-effort since Jellyfin doesn't have a native hero slot)
+   -------------------------------------------------------------------------- */
+.homeSectionsContainer > .verticalSection.section0:has(.backdropCard),
+.homeSectionsContainer > .verticalSection.section0:has(.overflowBackdropCard:only-child) {
+  margin-bottom: 1rem !important;
+}
+
+/* If a section is marked hero / brand, make it full-bleed */
+.verticalSection.hero,
+.verticalSection-extrapadding .backdropCard,
+.homeBrandingCard {
+  width: 100%;
+}
+.verticalSection.hero .cardImageContainer,
+.homeBrandingCard .cardImageContainer {
+  aspect-ratio: 21 / 9;
+  min-height: 55vh;
+  border-radius: var(--muse-r-xl) !important;
+}
+.verticalSection.hero .innerCardFooter,
+.homeBrandingCard .innerCardFooter {
+  inset: 0;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 60%;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 13, 0.95) 0%,
+    rgba(10, 10, 13, 0.75) 30%,
+    rgba(10, 10, 13, 0.2) 70%,
+    transparent 100%
+  );
+}
+.verticalSection.hero .cardText-first,
+.homeBrandingCard .cardText-first {
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 0.8rem;
+}
+
+/* -----------------------------------------------------------------------------
+   28e. Generic card hover depth (applied to all cards, tighter radii)
+   -------------------------------------------------------------------------- */
+.cardImageContainer {
+  border-radius: var(--muse-r-md) !important;
+}
+.card:hover .cardImageContainer {
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px var(--muse-accent-dim),
+    0 0 28px var(--muse-accent-glow);
+}
+
+/* Card play-button overlay (appears on hover) */
+.cardOverlayContainer {
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  border-radius: var(--muse-r-md);
+  opacity: 0;
+  transition: opacity var(--muse-dur) var(--muse-ease);
+}
+.card:hover .cardOverlayContainer { opacity: 1; }
+.cardOverlayButton {
+  background: white !important;
+  color: #0a0a0d !important;
+  border-radius: var(--muse-r-pill) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.cardOverlayButton:hover {
+  background: #f0f0f3 !important;
+  transform: scale(1.05);
+}
+
+/* -----------------------------------------------------------------------------
+   28f. Section "View all" right-side button
+   -------------------------------------------------------------------------- */
+.sectionTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sectionTitleContainer .sectionTitleTextButton::after {
+  content: " →";
+  opacity: 0.6;
+  margin-left: 0.2rem;
+  transition: transform var(--muse-dur) var(--muse-ease);
+  display: inline-block;
+}
+.sectionTitleContainer .sectionTitleTextButton:hover::after {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   28g. Main header tighter + cleaner nav
+   -------------------------------------------------------------------------- */
+.skinHeader {
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
+}
+.headerTabs .emby-tab-button {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+/* The Jellyfin logo in header — scale it */
+.skinHeader .pageTitle {
+  margin-inline-start: 0.5rem;
+}
+.skinHeader .pageTitleWithLogo {
+  background-size: contain;
+  height: 1.8rem;
+  min-width: 7rem;
+}
+
+/* -----------------------------------------------------------------------------
+   29. Reduced motion
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *,
