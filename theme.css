@@ -1295,26 +1295,43 @@ hr,
   border-radius: 0 !important;
 }
 
-/* Force first home hero section to behave like a full-screen hero wall */
+/* Force first hero region to full-screen width + height */
 .homeSectionsContainer > .verticalSection.section0,
-.homeSectionsContainer > .verticalSection.hero {
+.homeSectionsContainer > .verticalSection.hero,
+.homeSectionsContainer > .verticalSection:first-of-type {
   width: 100vw !important;
+  max-width: none !important;
   margin-inline: calc(50% - 50vw) !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  max-height: 100vh;
   padding: 0 !important;
+  overflow: hidden;
 }
 
 .homeSectionsContainer > .verticalSection.section0 .card,
-.homeSectionsContainer > .verticalSection.section0 .cardBox,
-.homeSectionsContainer > .verticalSection.section0 .cardPadder,
-.homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
-.homeSectionsContainer > .verticalSection.section0 .cardImage,
 .homeSectionsContainer > .verticalSection.hero .card,
+.homeSectionsContainer > .verticalSection:first-of-type .card,
+.homeSectionsContainer > .verticalSection.section0 .cardBox,
 .homeSectionsContainer > .verticalSection.hero .cardBox,
+.homeSectionsContainer > .verticalSection:first-of-type .cardBox,
+.homeSectionsContainer > .verticalSection.section0 .cardPadder,
 .homeSectionsContainer > .verticalSection.hero .cardPadder,
+.homeSectionsContainer > .verticalSection:first-of-type .cardPadder,
+.homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
 .homeSectionsContainer > .verticalSection.hero .cardImageContainer,
-.homeSectionsContainer > .verticalSection.hero .cardImage {
+.homeSectionsContainer > .verticalSection:first-of-type .cardImageContainer,
+.homeSectionsContainer > .verticalSection.section0 .cardImage,
+.homeSectionsContainer > .verticalSection.hero .cardImage,
+.homeSectionsContainer > .verticalSection:first-of-type .cardImage {
   width: 100% !important;
+  height: 100vh !important;
+  height: 100svh !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  max-height: 100vh;
   border-radius: 0 !important;
+  aspect-ratio: auto !important;
 }
 
 .homeSectionsContainer > .verticalSection.section0 .backdropCard,
@@ -1324,26 +1341,39 @@ hr,
 .homeSectionsContainer > .verticalSection.hero .backdropCard,
 .homeSectionsContainer > .verticalSection.hero .homeBrandingCard,
 .homeSectionsContainer > .verticalSection.hero .cardImageContainer,
-.homeSectionsContainer > .verticalSection.hero .cardImage {
+.homeSectionsContainer > .verticalSection.hero .cardImage,
+.homeSectionsContainer > .verticalSection:first-of-type .backdropCard,
+.homeSectionsContainer > .verticalSection:first-of-type .homeBrandingCard,
+.homeSectionsContainer > .verticalSection:first-of-type .cardImageContainer,
+.homeSectionsContainer > .verticalSection:first-of-type .cardImage {
   min-height: 100vh !important;
   min-height: 100svh !important;
-  max-height: 100vh;
+  max-height: 100vh !important;
   aspect-ratio: auto !important;
 }
 
 .homeSectionsContainer > .verticalSection.section0 .cardImage,
-.homeSectionsContainer > .verticalSection.hero .cardImage {
+.homeSectionsContainer > .verticalSection.hero .cardImage,
+.homeSectionsContainer > .verticalSection:first-of-type .cardImage,
+.homeSectionsContainer > .verticalSection:first-of-type img {
   object-fit: cover !important;
+  object-position: center center;
   object-position: center 30%;
+  background-size: cover !important;
+  background-position: center center !important;
+  display: block !important;
 }
 
 @media (max-width: 800px) {
   .homeSectionsContainer > .verticalSection.section0,
+  .homeSectionsContainer > .verticalSection.hero,
+  .homeSectionsContainer > .verticalSection:first-of-type,
   .homeSectionsContainer > .verticalSection.section0 .backdropCard,
   .homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
-  .homeSectionsContainer > .verticalSection.hero,
   .homeSectionsContainer > .verticalSection.hero .backdropCard,
-  .homeSectionsContainer > .verticalSection.hero .cardImageContainer {
+  .homeSectionsContainer > .verticalSection.hero .cardImageContainer,
+  .homeSectionsContainer > .verticalSection:first-of-type .backdropCard,
+  .homeSectionsContainer > .verticalSection:first-of-type .cardImageContainer {
     min-height: 72vh !important;
     min-height: 72svh !important;
   }
