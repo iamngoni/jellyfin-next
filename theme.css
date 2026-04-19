@@ -713,3 +713,389 @@ hr,
 .cardBox > div,
 .cardBox .card,
 .card > div { border: none; }
+
+/* -----------------------------------------------------------------------------
+   16. Horizontal scrollers (card rows) + pagination arrows
+   -------------------------------------------------------------------------- */
+.emby-scroller,
+.scrollSlider {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.emby-scroller::-webkit-scrollbar { display: none; }
+
+/* The "left/right" arrows that appear on hover over a row */
+.emby-scrollbuttons,
+.emby-scrollbuttons-button {
+  background: rgba(10, 10, 13, 0.6) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-pill);
+  color: var(--muse-text);
+  width: 2.6rem;
+  height: 2.6rem;
+  opacity: 0;
+  transition: opacity var(--muse-dur) var(--muse-ease),
+              background var(--muse-dur) var(--muse-ease);
+}
+.emby-scroller-container:hover .emby-scrollbuttons {
+  opacity: 1;
+}
+.emby-scrollbuttons:hover {
+  background: rgba(10, 10, 13, 0.85) !important;
+}
+
+/* Section "View all" link */
+.sectionTitleTextButton,
+.sectionTitleButton {
+  color: var(--muse-text-dim) !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.sectionTitleTextButton:hover,
+.sectionTitleButton:hover {
+  color: var(--muse-accent-hi) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   17. Home hero carousel indicators (dots)
+   -------------------------------------------------------------------------- */
+.slick-dots {
+  bottom: 1rem;
+  display: flex !important;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.slick-dots li {
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+.slick-dots li button {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--muse-r-pill);
+  background: rgba(255, 255, 255, 0.28);
+  border: none;
+  padding: 0;
+  transition: width var(--muse-dur) var(--muse-ease),
+              background var(--muse-dur) var(--muse-ease);
+}
+.slick-dots li button::before { display: none; }
+.slick-dots li.slick-active button {
+  width: 22px;
+  background: var(--muse-text);
+}
+
+/* -----------------------------------------------------------------------------
+   18. Library filter bar (view + sort + filter)
+   -------------------------------------------------------------------------- */
+.filterButton,
+.btnSort,
+.btnShuffle,
+.btnSelectView,
+.btnFilter {
+  background: var(--muse-overlay) !important;
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-pill);
+  color: var(--muse-text);
+  padding: 0.5rem 0.9rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  min-height: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.filterButton:hover,
+.btnSort:hover,
+.btnShuffle:hover,
+.btnSelectView:hover,
+.btnFilter:hover {
+  background: var(--muse-overlay-hi) !important;
+  border-color: var(--muse-hairline-hi);
+}
+
+.alphaPicker-vertical {
+  background: transparent;
+}
+.alphaPickerButton {
+  color: var(--muse-text-mute);
+  border-radius: var(--muse-r-pill);
+  min-width: 1.6rem;
+  height: 1.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.alphaPickerButton:hover {
+  color: var(--muse-text);
+  background: var(--muse-overlay);
+}
+.alphaPickerButton-selected {
+  color: white !important;
+  background: var(--muse-accent) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   19. Episode / list rows (series → season page)
+   -------------------------------------------------------------------------- */
+.listItem {
+  border-radius: var(--muse-r-md);
+  padding: 0.8rem;
+  margin-bottom: 0.4rem;
+  background: transparent;
+  transition: background var(--muse-dur) var(--muse-ease);
+}
+.listItem:hover {
+  background: var(--muse-overlay);
+}
+.listItemImage,
+.listItemImage-large {
+  border-radius: var(--muse-r-sm);
+  margin-inline-end: 1rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.listItemBodyText {
+  color: var(--muse-text);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.listItemBodyText.secondary {
+  color: var(--muse-text-dim);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.listItem-overview {
+  color: var(--muse-text-dim);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+/* Episode card (grid variant) progress bar + runtime badge */
+.cardOverlayFab-primary,
+.cardOverlayButtonIcon {
+  background: var(--muse-accent) !important;
+  color: white !important;
+  border-radius: var(--muse-r-pill);
+  box-shadow: 0 6px 18px var(--muse-accent-glow);
+}
+
+/* -----------------------------------------------------------------------------
+   20. Cast / person grid
+   -------------------------------------------------------------------------- */
+.itemsContainer.personItems,
+.peopleSection {
+  gap: 0.8rem;
+}
+.card.personCard .cardImageContainer,
+.card[data-type="Person"] .cardImageContainer,
+.card.overflowPortraitCard .cardImageContainer {
+  border-radius: var(--muse-r-pill) !important;
+  aspect-ratio: 1 / 1;
+}
+.card.personCard .cardText,
+.card[data-type="Person"] .cardText {
+  text-align: center;
+  padding-inline: 0.3rem;
+}
+
+/* -----------------------------------------------------------------------------
+   21. Player — track selection (subtitles / audio / quality)
+   -------------------------------------------------------------------------- */
+.trackSelections,
+.videoOsdBottom .actionSheetContent {
+  background: rgba(14, 14, 20, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-lg);
+  padding: 0.6rem;
+}
+.trackSelection,
+.actionSheetMenuItem {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--muse-r-sm);
+  color: var(--muse-text);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.trackSelection:hover,
+.actionSheetMenuItem:hover {
+  background: var(--muse-overlay-hi);
+}
+.actionSheetItemSelectedIcon {
+  color: var(--muse-accent) !important;
+}
+
+/* Volume slider */
+.osdVolumeSliderContainer .mdl-slider-background-lower,
+.osdVolumeSliderContainer .mdl-slider__background-lower {
+  background: var(--muse-text) !important;
+}
+
+/* Up Next overlay */
+.upNextContainer {
+  background: rgba(14, 14, 20, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-lg);
+  padding: 1.2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+/* -----------------------------------------------------------------------------
+   22. Search page
+   -------------------------------------------------------------------------- */
+.searchResults {
+  padding-top: 1rem;
+}
+.searchResults .sectionTitleContainer {
+  margin-top: 1.6rem;
+}
+.searchSuggestions .searchSuggestionItem {
+  border-radius: var(--muse-r-pill);
+  background: var(--muse-overlay);
+  border: 1px solid var(--muse-hairline);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  color: var(--muse-text-dim);
+}
+.searchSuggestions .searchSuggestionItem:hover {
+  background: var(--muse-overlay-hi);
+  color: var(--muse-text);
+}
+
+/* -----------------------------------------------------------------------------
+   23. Dashboard — stats + metric tiles
+   -------------------------------------------------------------------------- */
+.dashboardSection,
+.paperList.dashboardSection {
+  background: var(--muse-surface);
+  border: 1px solid var(--muse-hairline);
+  border-radius: var(--muse-r-lg);
+  padding: 1.2rem;
+}
+.dashboardSection h3,
+.dashboardSection .sectionTitle {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+.serverActivityLogItem {
+  border-radius: var(--muse-r-md);
+  padding: 0.7rem 0.9rem;
+}
+.serverActivityLogItem:hover {
+  background: var(--muse-overlay);
+}
+
+/* -----------------------------------------------------------------------------
+   24. Chromecast / casting indicator
+   -------------------------------------------------------------------------- */
+.headerCastButton.is-active,
+.btnCast.is-active {
+  color: var(--muse-accent) !important;
+}
+.nowPlayingBarInfoContainer {
+  background: rgba(14, 14, 20, 0.85) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--muse-hairline);
+}
+
+/* -----------------------------------------------------------------------------
+   25. Empty states + loading
+   -------------------------------------------------------------------------- */
+.noItemsMessage,
+.emptyMessage {
+  text-align: center;
+  color: var(--muse-text-mute);
+  padding: 3rem 1rem;
+  font-size: 0.95rem;
+}
+.noItemsMessage::before,
+.emptyMessage::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  border-radius: var(--muse-r-pill);
+  background: var(--muse-overlay);
+  box-shadow: inset 0 0 0 1px var(--muse-hairline);
+}
+
+.docspinner {
+  border-color: var(--muse-accent) transparent transparent transparent !important;
+}
+
+/* -----------------------------------------------------------------------------
+   26. User selection / login page polish
+   -------------------------------------------------------------------------- */
+#loginPage .userSelection,
+.userItemsContainer {
+  gap: 1rem;
+  justify-content: center;
+}
+.card.cardBox.card-withuserdata,
+.loginUserPhoto {
+  border-radius: var(--muse-r-lg);
+}
+.loginUserPhoto {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+              0 0 0 1px var(--muse-hairline);
+}
+.manualLoginForm .button-submit {
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+/* -----------------------------------------------------------------------------
+   27. Responsive: tighten on narrow screens
+   -------------------------------------------------------------------------- */
+@media (max-width: 800px) {
+  .sectionTitleContainer { padding: 0.8rem 0 0.6rem; }
+  .sectionTitle { font-size: 1.05rem; }
+  .mainDetailButtons { gap: 0.4rem; }
+  .detailButton:not(.detailButton-primary) .detailButton-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .detailButton-text { font-size: 0.68rem; }
+  .button-submit,
+  .raised.button-submit,
+  .btnPlay.raised {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.92rem;
+  }
+  .overview { font-size: 0.92rem; }
+}
+
+@media (max-width: 540px) {
+  .skinHeader { padding-inline: 0.4rem; }
+  .emby-tab-button {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.88rem;
+  }
+  .sectionTitleContainer .emby-button { font-size: 0.78rem; }
+  .mainDrawer-scrollContainer .navMenuOption {
+    padding: 0.6rem 0.8rem;
+    margin: 0.1rem 0.4rem;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   28. Reduced motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .card:hover .cardImageContainer { transform: none; }
+}
