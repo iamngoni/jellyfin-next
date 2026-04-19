@@ -596,9 +596,12 @@ input[type="range"]::-webkit-slider-thumb {
 /* -----------------------------------------------------------------------------
    11. Home hero / featured carousel
    -------------------------------------------------------------------------- */
-.hero-slider,
+.homePage .hero-slider,
+#homeTab .hero-slider,
 .itemsContainer.padded-left.padded-right {
-  border-radius: var(--muse-r-lg);
+  width: 100vw !important;
+  margin-inline: calc(50% - 50vw) !important;
+  border-radius: 0;
   overflow: hidden;
 }
 .headerTop,
@@ -1287,8 +1290,69 @@ hr,
 .verticalSection.hero .cardImageContainer,
 .homeBrandingCard .cardImageContainer {
   aspect-ratio: 21 / 9;
-  min-height: 55vh;
-  border-radius: var(--muse-r-xl) !important;
+  min-height: 100vh;
+  min-height: 100svh;
+  border-radius: 0 !important;
+}
+
+/* Force first home hero section to behave like a full-screen hero wall */
+.homeSectionsContainer > .verticalSection.section0,
+.homeSectionsContainer > .verticalSection.hero {
+  width: 100vw !important;
+  margin-inline: calc(50% - 50vw) !important;
+  padding: 0 !important;
+}
+
+.homeSectionsContainer > .verticalSection.section0 .card,
+.homeSectionsContainer > .verticalSection.section0 .cardBox,
+.homeSectionsContainer > .verticalSection.section0 .cardPadder,
+.homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
+.homeSectionsContainer > .verticalSection.section0 .cardImage,
+.homeSectionsContainer > .verticalSection.hero .card,
+.homeSectionsContainer > .verticalSection.hero .cardBox,
+.homeSectionsContainer > .verticalSection.hero .cardPadder,
+.homeSectionsContainer > .verticalSection.hero .cardImageContainer,
+.homeSectionsContainer > .verticalSection.hero .cardImage {
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+
+.homeSectionsContainer > .verticalSection.section0 .backdropCard,
+.homeSectionsContainer > .verticalSection.section0 .homeBrandingCard,
+.homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
+.homeSectionsContainer > .verticalSection.section0 .cardImage,
+.homeSectionsContainer > .verticalSection.hero .backdropCard,
+.homeSectionsContainer > .verticalSection.hero .homeBrandingCard,
+.homeSectionsContainer > .verticalSection.hero .cardImageContainer,
+.homeSectionsContainer > .verticalSection.hero .cardImage {
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  max-height: 100vh;
+  aspect-ratio: auto !important;
+}
+
+.homeSectionsContainer > .verticalSection.section0 .cardImage,
+.homeSectionsContainer > .verticalSection.hero .cardImage {
+  object-fit: cover !important;
+  object-position: center 30%;
+}
+
+@media (max-width: 800px) {
+  .homeSectionsContainer > .verticalSection.section0,
+  .homeSectionsContainer > .verticalSection.section0 .backdropCard,
+  .homeSectionsContainer > .verticalSection.section0 .cardImageContainer,
+  .homeSectionsContainer > .verticalSection.hero,
+  .homeSectionsContainer > .verticalSection.hero .backdropCard,
+  .homeSectionsContainer > .verticalSection.hero .cardImageContainer {
+    min-height: 72vh !important;
+    min-height: 72svh !important;
+  }
+
+  .homePage .hero-slider,
+  #homeTab .hero-slider,
+  .itemsContainer.padded-left.padded-right {
+    margin-inline: calc(50% - 50vw);
+  }
 }
 .verticalSection.hero .innerCardFooter,
 .homeBrandingCard .innerCardFooter {
